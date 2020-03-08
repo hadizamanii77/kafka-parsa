@@ -1,4 +1,5 @@
-from kafka import KafkaConsumer, KafkaProducer
+from global_utils.kafka import get_kafka_consumer
+
 import json
 import time
 import uuid
@@ -7,26 +8,8 @@ import uuid
 class Worker:
     def __init__(self):
         self.source_topic_name = 'worker'
-        self.bootstrap_servers = ['localhost:9092']
         self.group_id = 'worker-group'
-        self.consumer = self.get_kafka_consumer()
-        self.consumer.subscribe([self.source_topic_name])
-
-    def get_kafka_consumer(self):
-        _consumer = None
-        try:
-            _consumer = KafkaConsumer(
-                auto_offset_reset='earliest',
-                bootstrap_servers=self.bootstrap_servers,
-                api_version=(0, 10),
-                group_id=self.group_id
-            )
-
-        except Exception as e:
-            print('Exception while connecting Kafka')
-            print(e)
-        finally:
-            return _consumer
+        self.consumer = get_kafka_consumer(group_id=self.group_id,topic=self.source_topic_name)
 
     def start_fetching_data_from_queue(self):
 
