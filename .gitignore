@@ -1,0 +1,4 @@
+.idea
+venv
+*.pyc
+datahub_worker_simulation.egg-info
