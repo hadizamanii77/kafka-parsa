@@ -1,9 +1,12 @@
+import configparser
 import json
 
 from kafka import KafkaConsumer, KafkaProducer
 
+config = configparser.ConfigParser()
+config.read("config.ini")
 
-bootstrap_servers = ['localhost:9092']
+bootstrap_servers = config['kafka']['servers']
 
 
 def publish_message(producer,topic, key, value):
