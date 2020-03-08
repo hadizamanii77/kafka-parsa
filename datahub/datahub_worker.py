@@ -11,7 +11,6 @@ import uuid
 class DataHubWorker:
     def __init__(self):
         self.source_topic_name = 'data-hub'
-        self.dest_topic_name = 'worker'
         self.group_id = 'data-hub'
         self.consumer = get_kafka_consumer(group_id=self.group_id, topic=self.source_topic_name)
         self.task_producer = get_kafka_producer()
@@ -38,8 +37,6 @@ class DataHubWorker:
         for i in range(0, max_retry_attemp):
             try:
                 value = task.do()
-                key = str(uuid.uuid4())
-                publish_message(self.task_producer,self.dest_topic_name,key, value)
                 print("result : {}", value)
                 return
             except RandomError as e:
