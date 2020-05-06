@@ -1,7 +1,7 @@
 class Task:
 
     def __init__(self):
-        raise NotImplementedError
+        pass
 
-    def do(self):
+    def do(self, data):
         raise NotImplementedError
