@@ -1,9 +1,7 @@
 from datahub.tasks.tp_task import TpTask
-from global_utils.exception import RandomError
 from global_utils.kafka_manager import KafkaManager
 
 import json
-import time
 
 
 class DataHubWorker:
