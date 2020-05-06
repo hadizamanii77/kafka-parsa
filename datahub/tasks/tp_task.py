@@ -1,7 +1,5 @@
 from datahub.tasks.task import Task
-
-import random
-import uuid
+from apps.tp.main import start
 
 
 class TpTask(Task):
@@ -11,3 +9,4 @@ class TpTask(Task):
     def do(self, data):
         print(data['instrumentID'])
         print(data['price'])
+        start(data['instrumentID'], data['price'])

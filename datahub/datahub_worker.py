@@ -9,8 +9,6 @@ import time
 class DataHubWorker:
 
     def __init__(self):
-        self.source_topic_name = 'data-hub'
-        self.group_id = 'data-hub'
         self.kafka_manager = KafkaManager.get_instance()
 
     def start_fetching_data_from_queue(self):
@@ -22,8 +20,10 @@ class DataHubWorker:
     def _do_operation(self, msg):
         topic = msg.topic
         data = json.loads(msg.value.decode("utf-8"))
+        task = None
         if topic == 'TPTopic':
-            TpTask().do(data=data)
+            task = TpTask()
+        task.do(data=data)
 
 
 if __name__ == '__main__':
